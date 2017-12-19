@@ -1,5 +1,8 @@
-.App {
-  text-align: center;
+.AppContainer {
+  text-align: left;
+  max-width: 600px;
+  margin: auto;
+  padding-top: 40px
 }
 
 .App-logo {

@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
+import 'semantic-ui-css/semantic.min.css';
+import { Form, Input } from 'semantic-ui-react'
 
 class AddTodo extends Component {
 
   render() {
     return (
-      <div>
-      <div>
-        <form onSubmit={this.handleTask.bind(this)}>
-          <input type='text' placeholder='tasks..' ref='inputTodo' />
-          <button>Add Todo</button>
-        </form>
-      </div>
-    </div>
+        <Form size='large' onSubmit={e => {
+                e.preventDefault()
+                const input = document.querySelector('input[name=todo]')
+                if (!input.value.trim()) {
+                  return
+                }
+                this.props.addTodo(input.value);
+                input.value = ''
+              }}>
+          <Input type='text' fluid align="center"  placeholder='Tasks...' style={{ marginBottom: '1em' }}  action={{ color: 'black', content: 'Add Todo' }} ref='inputTodo' name='todo' />
+        </Form>
     );
   }
 

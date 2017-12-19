@@ -3,6 +3,7 @@ import './App.css';
 import AddTodo from './components/AddTodo'
 import TodoList from './components/TodoList'
 import ClearCompleted from './components/ClearCompleted'
+import CompleteList from './components/CompleteList'
 
 let counter = 0
 const todos = [];
@@ -29,30 +30,36 @@ render() {
               deleteTodo={this.deleteTodo.bind(this)}
             />
             <ClearCompleted todos={this.state.todos} clearCompleted={this.clearCompleted.bind(this)} />
-
+            <CompleteList todos={this.state.todos}
+              todos={this.state.todos}
+              toggleTodo={this.toggleTodo.bind(this)}
+              deleteTodo={this.deleteTodo.bind(this)}
+            />
         </div>
       </div>
     );
   }
 
   clearCompleted(){
-    todos.map(todo => {if(todo.completed === true){todo.show = false}});
+    //const clearTodo = this.state.todos.map(todo => {if(todo.completed === true){ return [...todo, todo.show = false]}});
+    const clearTodo = this.state.todos.map(todo => {if(todo.completed === true){ todo.show = false }});
     this.setState({ todos: this.state.todos });
-    console.log(todos);
+    console.log(clearTodo, 'clear todo');
+    console.log(this.state.todos, 'clear comp');
   }
 
   deleteTodo(id){
-    let index = todos.indexOf(id);
-    todos.splice(index, 1)
-    this.setState({ todos: this.state.todos });
-    console.log(todos, 'del');
+    const filterTodos = this.state.todos.filter(function (todo){
+    return (todo.id !== id)});
+    console.log(filterTodos, 'dele filter');
+    this.setState({ todos: filterTodos });
+    console.log(this.state.todos, 'deleter');
   }
 
   toggleTodo(id){
-    const todo = todos.find(todo => todo.id === id);
-    todo.completed = !todo.completed;
+    this.state.todos.map(todo => {if(todo.id === id){todo.completed = !todo.completed}});
     this.setState({ todos: this.state.todos });
-    console.log(todos, 'togg');
+    console.log(this.state.todos);
   }
 
   addTodo(text){
@@ -62,9 +69,10 @@ render() {
       completed: false,
       show: true
     });
+    console.log(this.state.todos, 'add todo');
     this.setState({todos: this.state.todos})
+    console.log(this.state.todos, 'add todo2');
   }
-
 }
 
 
